@@ -1,4 +1,4 @@
-# keybase-contact-form
+# Keybase Contact Form - Vue
 
 ## Project setup
 ```
