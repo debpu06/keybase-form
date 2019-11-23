@@ -94,11 +94,10 @@ export default {
     // build keymanager from public key in config
     buildKeyManager: function() {
       var promise = new Promise(function(resolve, reject) {
-        var public_key = process.env.VUE_APP_PGP_PUBLIC_KEY;
         
         kbpgp.KeyManager.import_from_armored_pgp(
           {
-            armored: public_key
+            armored: process.env.VUE_APP_PGP_PUBLIC_KEY
           },
           function(err, manager) {
             if (!err) {
