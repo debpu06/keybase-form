@@ -49,7 +49,7 @@ import axios from 'axios';
 const kbpgp = require("kbpgp");
 
 const httpClient = axios.create({
-  baseURL: process.env.FORM_SUBMISSION_URL,
+  baseURL: process.env.VUE_APP_FORM_SUBMISSION_URL,
   headers: {
       "Content-Type": "application/json",
       // anything you want to add to the headers
@@ -78,7 +78,6 @@ export default {
     // submit form handler
     submit: function() {
       this.submitted = true;
-      console.log(this.message.text);
       this.encryptMessage(this.message.text);
     },
     // check for valid email adress
@@ -95,8 +94,8 @@ export default {
     // build keymanager from public key in config
     buildKeyManager: function() {
       var promise = new Promise(function(resolve, reject) {
-        var public_key = process.env.PGP_PUBLIC_KEY;
-
+        var public_key = process.env.VUE_APP_PGP_PUBLIC_KEY;
+        
         kbpgp.KeyManager.import_from_armored_pgp(
           {
             armored: public_key
