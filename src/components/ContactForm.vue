@@ -78,6 +78,21 @@ export default {
     submit: function() {
       this.submitted = true;
       this.encryptMessage(this.message.text);
+
+      const fields = {
+      "message": {
+        "sender": this.email.value, 
+        "content": this.message.text
+      }
+     }
+    fetch("/.netlify/functions/contactForm", {
+    method: "POST",
+      body: JSON.stringify(fields)
+    })
+    .then(() => alert("Form Sent!"))
+    .catch(error => alert(error))
+
+    e.preventDefault();
     },
     // check for valid email adress
     isEmail: function(value) {
