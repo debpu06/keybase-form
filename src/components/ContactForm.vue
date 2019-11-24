@@ -90,9 +90,9 @@ export default {
         body: JSON.stringify(fields)
       })
       .then(response => {
-        console.log(response.json());
+        console.log("success", response.json());
       })
-      .catch(error => console.log(error))
+      .catch(error => console.log("failure", error))
     },
     // check for valid email adress
     isEmail: function(value) {
