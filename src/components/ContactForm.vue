@@ -91,8 +91,6 @@ export default {
     })
     .then(() => alert("Form Sent!"))
     .catch(error => alert(error))
-
-    e.preventDefault();
     },
     // check for valid email adress
     isEmail: function(value) {
