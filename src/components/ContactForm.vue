@@ -89,7 +89,10 @@ export default {
       method: "POST",
         body: JSON.stringify(fields)
       })
-      .then(response => console.log(response))
+      .then(response => {
+        const data = JSON.parse(response.body);
+        console.log(data);
+      })
       .catch(error => console.log(error))
     },
     // check for valid email adress
