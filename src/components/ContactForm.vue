@@ -80,10 +80,8 @@ export default {
       this.encryptMessage(this.message.text);
 
       const fields = {
-      "message": {
         "sender": this.email.value, 
         "content": this.message.text
-        }
       }
 
       fetch('/.netlify/functions/contactForm', fields)
