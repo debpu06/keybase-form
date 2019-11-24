@@ -7,8 +7,8 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="email">Email</label>
           <div class="col-sm-10">
-            <input
-              class="form-control"
+            <input class="form-control"
+              placeholder="joe.secure@myemail.com"
               type="email"
               name="email"
               id="email"
@@ -23,6 +23,7 @@
           <div class="col-sm-10">
             <textarea
               rows="10"
+              placeholder="Dear secure friend,\n..."
               class="form-control"
               name="textarea"
               id="textarea"
@@ -31,13 +32,11 @@
               v-model="message.text"
               :maxlength="message.maxlength"
             ></textarea>
-            <!-- <small id="textAreaInfo" class="form-text text-muted">
-  Your information in this field .
-            </small>-->
           </div>
         </div>
         <div>
           <button type="submit" class="btn btn-primary mb-2">Submit</button>
+          <!-- <button v-on:click="encryptEvent" class="btn btn-primary mb-2">Encrypt</button> -->
         </div>
       </div>
     </form>
@@ -63,12 +62,12 @@ export default {
   data() {
     return {
       email: {
-        value: "johndoe@myemail.com",
+        value: "",
         valid: true
       },
       message: {
-        text: "Dear debpu06,\n...",
-        maxlength: 500
+        text: "",
+        maxlength: 1000
       },
       submitted: false,
       emailRegExp: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
@@ -112,6 +111,13 @@ export default {
       });
       return promise;
     },
+
+    // implementation for making encryption its own button
+    // encryptEvent: function(event) {
+    //   if(event && this.message.text != "") {
+    //     this.encryptMessage(this.message.text);
+    //   }
+    // },
 
     encryptMessage: function(message) {
       var _this = this;
