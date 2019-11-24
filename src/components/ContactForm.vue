@@ -90,8 +90,7 @@ export default {
         body: JSON.stringify(fields)
       })
       .then(response => {
-        const data = JSON.parse(response.body);
-        console.log(data);
+        console.log(response.json());
       })
       .catch(error => console.log(error))
     },
