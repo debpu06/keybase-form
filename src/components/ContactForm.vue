@@ -86,7 +86,7 @@ export default {
         }
       }
 
-      this.$http.post('/.netlify/functions/contactForm', fields)
+      this.http.post('/.netlify/functions/contactForm', fields)
       .then ((res)=> console.log (res.body))
       .catch ((error)=> console.log(error))
     },
