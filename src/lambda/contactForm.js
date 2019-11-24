@@ -1,9 +1,7 @@
-exports.handler = function(event, context, callback) {
-
+export function handler(event, context, callback) {
     const data = JSON.parse(event.body);
-    
     callback(null, {
-    statusCode: 200,
-    body: data.sender
+        statusCode: 200,
+        body: data.sender
     });
 }
