@@ -106,14 +106,14 @@ export default {
     // build keymanager from public key in config
     buildKeyManager: function() {
       var promise = new Promise(function(resolve, reject) {
-        console.log("key", process.env.VUE_APP_PGP_PUBLIC_KEY);
+        // console.log("key", process.env.VUE_APP_PGP_PUBLIC_KEY);
         kbpgp.KeyManager.import_from_armored_pgp(
           {
             armored: process.env.VUE_APP_PGP_PUBLIC_KEY
           },
           function(err, manager) {
             if (!err) {
-              console.log(manager);
+              // console.log(manager);
               resolve(manager);
             } else {
               reject(err);
@@ -142,9 +142,9 @@ export default {
           };
 
           kbpgp.box(params, function(err, result_string, result_buffer) {
-            console.log(err, result_string, result_buffer);
+            // console.log(err, result_string, result_buffer);
             _this.message.text = result_string;
-            _this.postForm(result_string);
+            // _this.postForm(result_string);
           });
         },
         function(error) {
@@ -153,20 +153,20 @@ export default {
       );
     },
 
-    postForm: function(email, message){
-        httpClient.post(`https://davidboland.site/api/contact`, {
-          body: { email: email, message: message }
-        })
-        .then(response => 
-        {
-          if(response.success) {
-             console.log("Success"); 
-          }
-        })
-        .catch(e => {
-        this.errors.push(e)
-      })
-    }
+    // postForm: function(email, message){
+    //     httpClient.post(`https://davidboland.site/api/contact`, {
+    //       body: { email: email, message: message }
+    //     })
+    //     .then(response => 
+    //     {
+    //       if(response.success) {
+    //          console.log("Success"); 
+    //       }
+    //     })
+    //     .catch(e => {
+    //     this.errors.push(e)
+    //   })
+    // }
   },
   watch: {
     // watching nested property
