@@ -86,31 +86,19 @@ export default {
         }
       }
 
-      postMessage(fields).then((response) => {
-        console.log('API response', response)
-        // set app state
-        }).catch((error) => {
-          console.log('API error', error)
-      })
-
-      // fetch("/.netlify/functions/contactForm", {
-      // method: "POST",
-      //   body: JSON.stringify(fields)
-      // })
-      // .then(response => {
-      //   console.log("success", response.json());
-      // })
-      // .catch(error => console.log("failure", error))
+      this.$http.post('/.netlify/functions/contactForm', fields)
+      .then ((res)=> console.log (res.body))
+      .catch ((error)=> console.log(error))
     },
 
-    postMessage: function(data){
-      return fetch('/.netlify/functions/contactForm', {
-          body: JSON.stringify(data),
-          method: 'POST'
-        }).then(response => {
-          return response.json()
-        })
-    },
+    // postMessage: function(data){
+    //   return fetch('/.netlify/functions/contactForm', {
+    //       body: JSON.stringify(data),
+    //       method: 'POST'
+    //     }).then(response => {
+    //       return response.json()
+    //     })
+    // },
     // check for valid email adress
     isEmail: function(value) {
       return this.emailRegExp.test(value);
