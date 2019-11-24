@@ -85,14 +85,31 @@ export default {
         "content": this.message.text
         }
       }
-      fetch("/.netlify/functions/contactForm", {
-      method: "POST",
-        body: JSON.stringify(fields)
+
+      postMessage(fields).then((response) => {
+        console.log('API response', response)
+        // set app state
+        }).catch((error) => {
+          console.log('API error', error)
       })
-      .then(response => {
-        console.log("success", response.json());
-      })
-      .catch(error => console.log("failure", error))
+
+      // fetch("/.netlify/functions/contactForm", {
+      // method: "POST",
+      //   body: JSON.stringify(fields)
+      // })
+      // .then(response => {
+      //   console.log("success", response.json());
+      // })
+      // .catch(error => console.log("failure", error))
+    },
+
+    postMessage: function(data){
+      return fetch('/.netlify/functions/contactForm', {
+          body: JSON.stringify(data),
+          method: 'POST'
+        }).then(response => {
+          return response.json()
+        })
     },
     // check for valid email adress
     isEmail: function(value) {
