@@ -83,14 +83,14 @@ export default {
       "message": {
         "sender": this.email.value, 
         "content": this.message.text
+        }
       }
-     }
-    fetch("/.netlify/functions/contactForm", {
-    method: "POST",
-      body: JSON.stringify(fields)
-    })
-    .then(() => alert("Form Sent!"))
-    .catch(error => alert(error))
+      fetch("/.netlify/functions/contactForm", {
+      method: "POST",
+        body: JSON.stringify(fields)
+      })
+      .then(response => console.log(response))
+      .catch(error => console.log(error))
     },
     // check for valid email adress
     isEmail: function(value) {
