@@ -44,16 +44,16 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 const kbpgp = require("kbpgp");
 
-const httpClient = axios.create({
-  baseURL: process.env.VUE_APP_FORM_SUBMISSION_URL,
-  headers: {
-      "Content-Type": "application/json",
-      // anything you want to add to the headers
-  }
-});
+// const httpClient = axios.create({
+//   baseURL: process.env.VUE_APP_FORM_SUBMISSION_URL,
+//   headers: {
+//       "Content-Type": "application/json",
+//       // anything you want to add to the headers
+//   }
+// });
 
 export default {
   name: "ContactForm",
@@ -142,7 +142,7 @@ export default {
           };
 
           kbpgp.box(params, function(err, result_string, result_buffer) {
-            // console.log(err, result_string, result_buffer);
+            console.log(err, result_string, result_buffer);
             _this.message.text = result_string;
             // _this.postForm(result_string);
           });
