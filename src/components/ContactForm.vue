@@ -44,16 +44,8 @@
 </template>
 
 <script>
-// import axios from 'axios';
-const kbpgp = require("kbpgp");
 
-// const httpClient = axios.create({
-//   baseURL: process.env.VUE_APP_FORM_SUBMISSION_URL,
-//   headers: {
-//       "Content-Type": "application/json",
-//       // anything you want to add to the headers
-//   }
-// });
+const kbpgp = require("kbpgp");
 
 export default {
   name: "ContactForm",
@@ -92,25 +84,14 @@ export default {
         })
       };
 
-      //const response = fetch(url, options).json();
-
-
       fetch(url, options)
       .then(function(response) {
-        console.log(response.json().message);
+        return response.json();
       }).then(function(data) {
-        console.log('Created Gist:', data);
+        console.log('Sent Email:', data.message);
       });
     },
 
-    // postMessage: function(data){
-    //   return fetch('/.netlify/functions/contactForm', {
-    //       body: JSON.stringify(data),
-    //       method: 'POST'
-    //     }).then(response => {
-    //       return response.json()
-    //     })
-    // },
     // check for valid email adress
     isEmail: function(value) {
       return this.emailRegExp.test(value);
@@ -125,14 +106,12 @@ export default {
     // build keymanager from public key in config
     buildKeyManager: function() {
       var promise = new Promise(function(resolve, reject) {
-        // console.log("key", process.env.VUE_APP_PGP_PUBLIC_KEY);
         kbpgp.KeyManager.import_from_armored_pgp(
           {
             armored: process.env.VUE_APP_PGP_PUBLIC_KEY
           },
           function(err, manager) {
             if (!err) {
-              // console.log(manager);
               resolve(manager);
             } else {
               reject(err);
@@ -143,13 +122,6 @@ export default {
       });
       return promise;
     },
-
-    // implementation for making encryption its own button
-    // encryptEvent: function(event) {
-    //   if(event && this.message.text != "") {
-    //     this.encryptMessage(this.message.text);
-    //   }
-    // },
 
     encryptMessage: function(message) {
       var _this = this;
@@ -163,29 +135,13 @@ export default {
           kbpgp.box(params, function(err, result_string, result_buffer) {
             console.log(err, result_string, result_buffer);
             _this.message.text = result_string;
-            // _this.postForm(result_string);
           });
         },
         function(error) {
           console.log(error);
         }
       );
-    },
-
-    // postForm: function(email, message){
-    //     httpClient.post(`https://davidboland.site/api/contact`, {
-    //       body: { email: email, message: message }
-    //     })
-    //     .then(response => 
-    //     {
-    //       if(response.success) {
-    //          console.log("Success"); 
-    //       }
-    //     })
-    //     .catch(e => {
-    //     this.errors.push(e)
-    //   })
-    // }
+    }
   },
   watch: {
     // watching nested property
