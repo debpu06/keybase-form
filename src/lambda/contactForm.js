@@ -1,4 +1,4 @@
-var nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer');
 
 export function handler(event, context, callback) {
     const data = JSON.parse(event.body);
@@ -8,11 +8,13 @@ export function handler(event, context, callback) {
         body: JSON.stringify({ message: data })
     });
     var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: process.env.GMAIL_SENDER_ADDRESS,
-          pass: process.env.GMAIL_SENDER_PASSWORD
-        }
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
+            auth: {
+                user: process.env.GMAIL_SENDER_ADDRESS,
+                pass: process.env.GMAIL_SENDER_PASSWORD
+              }
       });
 
     var mailOptions = {
@@ -25,14 +27,11 @@ export function handler(event, context, callback) {
     transporter.sendMail(mailOptions, function(error, info){
         if (error) {
           console.log(error);
-          callback(null, {
-              statusCode: 500, 
-              body: JSON.stringify({ mailer: info.response })
-          });
+          callback(error);
         } else {
             callback(null, {
                 statusCode: 200, 
-                body: JSON.stringify({ message: "Message sent" })
+                body: "Ok"
             });
         }
       });
