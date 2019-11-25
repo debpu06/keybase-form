@@ -27,7 +27,7 @@ export function handler(event, context, callback) {
     transporter.sendMail(mailOptions, function(error, info){
         if (error) {
           console.log(error);
-          callback(null, { statusCode: 200, body: JSON.stringify(error) });
+          callback(null, { statusCode: 200, body: JSON.stringify({ message: "sorry, there was an error in submitting the form" }) });
         } else {
             callback(null, {
                 statusCode: 200, 
