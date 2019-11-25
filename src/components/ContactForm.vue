@@ -84,7 +84,7 @@ export default {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
-          'Content-Type': 'application/json;charset=UTF-8'
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           sender: this.email.value,
@@ -92,9 +92,8 @@ export default {
         })
       };
 
-      fetch(url, options)
-        .then((response) => console.log (response.json()))
-        .catch ((error)=> console.log(error))
+      const response = fetch(url, options).json();
+      console.log("Did it!", response.message);
     },
 
     // postMessage: function(data){
