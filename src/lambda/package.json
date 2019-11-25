@@ -1,0 +1,14 @@
+{
+  "name": "contact-functions",
+  "version": "1.0.0",
+  "description": "Functions related to the implementation of keybase-contact-form",
+  "main": "contactForm.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "debpu06",
+  "license": "ISC",
+  "dependencies": {
+    "nodemailer": "^6.3.1"
+  }
+}
