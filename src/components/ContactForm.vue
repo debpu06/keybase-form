@@ -93,7 +93,7 @@ export default {
       };
 
       fetch(url, options)
-        .then((response) => console.log (response.body))
+        .then((response) => console.log (response.json()))
         .catch ((error)=> console.log(error))
     },
 
