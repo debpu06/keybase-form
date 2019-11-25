@@ -31,7 +31,7 @@ export function handler(event, context, callback) {
         } else {
             callback(null, {
                 statusCode: 200, 
-                body: "Ok"
+                body: JSON.stringify({ message: "successful submission" })
             });
         }
       });
