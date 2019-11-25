@@ -3,10 +3,6 @@ const nodemailer = require('nodemailer');
 export function handler(event, context, callback) {
     const data = JSON.parse(event.body);
 
-    // callback(null, {
-    //     statusCode: 200, 
-    //     body: JSON.stringify({ message: data })
-    // });
     var transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
             port: 465,
@@ -18,7 +14,7 @@ export function handler(event, context, callback) {
       });
 
     var mailOptions = {
-        from: "dboland1812@gmail.com",
+        from: process.env.GMAIL_SENDER_ADDRESS,
         to: process.env.MESSAGE_INBOX,
         subject: 'Secure email from contact form ' + Date.now(),
         text: data.content
