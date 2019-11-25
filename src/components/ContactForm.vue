@@ -2,7 +2,7 @@
   <div>
     <h1>Contact</h1>
     <p>Some contact message</p>
-    <form class="vue-form" @submit.prevent="submit">
+    <form v-if="!submitted" class="vue-form" @submit.prevent="submit">
       <div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="email">Email</label>
@@ -44,6 +44,9 @@
         </div>
       </div>
     </form>
+    <p v-if="submitted" v-text="submissionResponse">
+      
+    </p>
   </div>
 </template>
 
@@ -65,6 +68,7 @@ export default {
         text: "",
         maxlength: 1000
       },
+      submissionResponse: "",
       submitted: false,
       emailRegExp: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
     };
@@ -72,8 +76,6 @@ export default {
   methods: {
     // submit form handler
     submit: function() {
-      this.submitted = true;
-
       const url = '/.netlify/functions/contactForm';
       const options = {
         method: 'POST',
@@ -85,12 +87,14 @@ export default {
           content: this.message.text
         })
       };
-
+      var _this = this;
       fetch(url, options)
       .then(function(response) {
         return response.json();
       }).then(function(data) {
         console.log('Email Submission:', data.message);
+        _this.submissionResponse = data.message;
+        _this.submitted = true;
       });
     },
 

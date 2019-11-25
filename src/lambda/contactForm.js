@@ -20,7 +20,7 @@ export function handler(event, context, callback) {
     var mailOptions = {
         from: "dboland1812@gmail.com",
         to: process.env.MESSAGE_INBOX,
-        subject: 'Secure email from contact form' + Date.now(),
+        subject: 'Secure email from contact form ' + Date.now(),
         text: data.content
       };
 
@@ -31,7 +31,7 @@ export function handler(event, context, callback) {
         } else {
             callback(null, {
                 statusCode: 200, 
-                body: JSON.stringify({ message: "successful submission" })
+                body: JSON.stringify({ message: "Message submitted! We will get back to you shortly." })
             });
         }
       });
