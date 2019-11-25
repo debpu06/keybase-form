@@ -16,6 +16,7 @@
               :class="{ email , error: !email.valid }"
               v-model="email.value"
             />
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else. Your email will be encrypted in the message.</small>
           </div>
         </div>
         <div class="form-group row">
@@ -81,7 +82,6 @@ export default {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          sender: this.email.value,
           content: this.message.text
         })
       };

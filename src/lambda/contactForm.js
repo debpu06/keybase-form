@@ -18,7 +18,7 @@ export function handler(event, context, callback) {
       });
 
     var mailOptions = {
-        from: data.sender,
+        from: "dboland1812@gmail.com",
         to: process.env.MESSAGE_INBOX,
         subject: 'Secure email from contact form' + Date.now(),
         text: data.content
