@@ -88,7 +88,7 @@ export default {
       .then(function(response) {
         return response.json();
       }).then(function(data) {
-        console.log('Sent Email:', data.message);
+        console.log('Sent Email:', data);
       });
     },
 
