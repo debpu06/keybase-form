@@ -97,7 +97,7 @@ export default {
 
       fetch(url, options)
       .then(function(response) {
-        console.log(response.json());
+        console.log(response.json().message);
       }).then(function(data) {
         console.log('Created Gist:', data);
       });
