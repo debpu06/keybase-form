@@ -7,33 +7,33 @@ export function handler(event, context, callback) {
         statusCode: 200, 
         body: JSON.stringify({ message: data })
     });
-    // var transporter = nodemailer.createTransport({
-    //     service: 'gmail',
-    //     auth: {
-    //       user: 'youremail@gmail.com',
-    //       pass: 'yourpassword'
-    //     }
-    //   });
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: process.env.GMAIL_SENDER_ADDRESS,
+          pass: process.env.GMAIL_SENDER_PASSWORD
+        }
+      });
 
-    // var mailOptions = {
-    //     from: 'youremail@gmail.com',
-    //     to: 'myfriend@yahoo.com',
-    //     subject: 'Sending Email using Node.js',
-    //     text: 'That was easy!'
-    //   };
+    var mailOptions = {
+        from: data.sender,
+        to: process.env.MESSAGE_INBOX,
+        subject: 'Secure email from contact form',
+        text: data.content
+      };
 
-    // transporter.sendMail(mailOptions, function(error, info){
-    //     if (error) {
-    //       console.log(error);
-    //       callback(null, {
-    //           statusCode: 500, 
-    //           body: JSON.stringify({ mailer: info.response })
-    //       });
-    //     } else {
-    //         callback(null, {
-    //             statusCode: 200, 
-    //             body: JSON.stringify({ message: "Message sent" })
-    //         });
-    //     }
-    //   });
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+          callback(null, {
+              statusCode: 500, 
+              body: JSON.stringify({ mailer: info.response })
+          });
+        } else {
+            callback(null, {
+                statusCode: 200, 
+                body: JSON.stringify({ message: "Message sent" })
+            });
+        }
+      });
 }
