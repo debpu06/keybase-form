@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Contact</h1>
-    <p>Some contact message</p>
+    <p>PGP encryption capable form</p>
     <form v-if="!submitted" class="vue-form" @submit.prevent="submit">
       <div>
         <div class="form-group row">
@@ -36,16 +36,21 @@
           </div>
         </div>
         <div class="form-group row">
-          <div class="col-sm-2"></div>
+          <div class="col-sm-2">
+            
+          </div>
           <div class="col-sm-10">
-            <button type="button" v-on:click="encryptSubmit" class="btn btn-outline-info btn-lg btn-block">Encrypt</button>
-            <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>          
+            <div v-if="waitingForAction" class="spinner-border text-primary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>  
+            <button :disabled="waitingForAction" type="button" v-on:click="encryptSubmit" class="btn btn-outline-info btn-lg btn-block">Encrypt</button>
+            <button :disabled="waitingForAction" type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>     
+               
           </div>
         </div>
       </div>
     </form>
-    <p v-if="submitted" v-text="submissionResponse">
-      
+    <p v-if="submitted" v-text="submissionResponse">   
     </p>
   </div>
 </template>
@@ -70,12 +75,14 @@ export default {
       },
       submissionResponse: "",
       submitted: false,
+      waitingForAction: false,
       emailRegExp: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
     };
   },
   methods: {
     // submit form handler
     submit: function() {
+      this.waitingForAction = true;
       const url = '/.netlify/functions/contactForm';
       const options = {
         method: 'POST',
@@ -93,6 +100,7 @@ export default {
         return response.json();
       }).then(function(data) {
         console.log('Email Submission:', data.message);
+        _this.waitingForAction = false;
         _this.submissionResponse = data.message;
         _this.submitted = true;
       });
@@ -129,12 +137,15 @@ export default {
       return promise;
     },
 
+    // verify valid email and some message content is set before encrypting
     encryptSubmit: function(){
       if(this.email.valid && this.message.text){
+        this.waitingForAction = true;
         this.encryptMessage("sender: " + this.email.value + "\n\n" + this.message.text);
       }
     },
 
+    // encrypt some text
     encryptMessage: function(message) {
       var _this = this;
       this.buildKeyManager().then(
@@ -147,6 +158,7 @@ export default {
           kbpgp.box(params, function(err, result_string, result_buffer) {
             console.log(err, result_string, result_buffer);
             _this.message.text = result_string;
+            _this.waitingForAction = false;
           });
         },
         function(error) {
