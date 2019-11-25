@@ -23,7 +23,7 @@
           <div class="col-sm-10">
             <textarea
               rows="10"
-              placeholder="Dear secure friend,\n..."
+              placeholder="Dear secure friend, ..."
               class="form-control"
               name="textarea"
               id="textarea"
@@ -34,9 +34,12 @@
             ></textarea>
           </div>
         </div>
-        <div>
-          <button type="submit" class="btn btn-primary mb-2">Submit</button>
-          <!-- <button v-on:click="encryptEvent" class="btn btn-primary mb-2">Encrypt</button> -->
+        <div class="form-group row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-10">
+            <button type="button" v-on:click="encryptSubmit" class="btn btn-outline-info btn-lg btn-block">Encrypt</button>
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>          
+          </div>
         </div>
       </div>
     </form>
@@ -69,7 +72,6 @@ export default {
     // submit form handler
     submit: function() {
       this.submitted = true;
-      this.encryptMessage(this.message.text);
 
       const url = '/.netlify/functions/contactForm';
       const options = {
@@ -121,6 +123,12 @@ export default {
         );
       });
       return promise;
+    },
+
+    encryptSubmit: function(){
+      if(this.email.valid && this.message.text){
+        this.encryptMessage("sender: " + this.email.value + "\n\n" + this.message.text);
+      }
     },
 
     encryptMessage: function(message) {
