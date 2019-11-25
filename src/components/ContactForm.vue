@@ -79,14 +79,22 @@ export default {
       this.submitted = true;
       this.encryptMessage(this.message.text);
 
-      const fields = {
-        "sender": this.email.value, 
-        "content": this.message.text
-      }
+      const url = '/.netlify/functions/contactForm';
+      const options = {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: JSON.stringify({
+          sender: this.email.value,
+          content: this.message.text
+        })
+      };
 
-      fetch('/.netlify/functions/contactForm', fields)
-      .then ((res)=> console.log (res.body))
-      .catch ((error)=> console.log(error))
+      fetch(url, options)
+        .then((response) => console.log (response.body))
+        .catch ((error)=> console.log(error))
     },
 
     // postMessage: function(data){
