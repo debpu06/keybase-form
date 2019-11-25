@@ -92,8 +92,15 @@ export default {
         })
       };
 
-      const response = fetch(url, options).json();
-      console.log("Did it!", response.message);
+      //const response = fetch(url, options).json();
+
+
+      fetch(url, options)
+      .then(function(response) {
+        console.log(response.json());
+      }).then(function(data) {
+        console.log('Created Gist:', data);
+      });
     },
 
     // postMessage: function(data){
