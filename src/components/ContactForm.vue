@@ -36,16 +36,12 @@
           </div>
         </div>
         <div class="form-group row">
-          <div class="col-sm-2">
-            
-          </div>
-          <div class="col-sm-10">
+          <div class="col-sm-10 offset-sm-2">
             <div v-if="waitingForAction" class="spinner-border text-primary" role="status">
               <span class="sr-only">Loading...</span>
             </div>  
             <button :disabled="waitingForAction" type="button" v-on:click="encryptSubmit" class="btn btn-outline-info btn-lg btn-block">Encrypt</button>
             <button :disabled="waitingForAction" type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>     
-               
           </div>
         </div>
       </div>
