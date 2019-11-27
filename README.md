@@ -7,7 +7,7 @@ This form was designed to allow encrypting messages from site visitors to site o
 ### Resources:
 * [Keybase](https://keybase.io)
 * [Example implementation](https://contact.davidboland.site)
-* More in depth discussion can be found on my [blog](https://davidboland.site)
+* More in depth discussion can be found on my [blog](https://davidboland.site/blog/encrypted-contact-form-in-vue)
 
 ## Project setup
 ```
